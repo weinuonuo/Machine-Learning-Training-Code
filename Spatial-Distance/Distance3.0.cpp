@@ -34,12 +34,10 @@ vector<struct Points> loc;
 
 bool complare(struct location a,struct location b)
 {
-	return a.x <= b.x;
+	return a.x < b.x;
 }
 
 bool surten(struct location a, struct location b){
-	if(a.lo == b.lo) return true;
-	//if (abs(a.x-b.x) > 0.1 ||abs(a.y-b.y) > 0.1) return true;
 	double dx = a.y - b.y; // 经度差值
 	double dy = a.x - b.x; // 纬度差值
 	double c = (a.x + b.x) * 0.008726646; // 平均纬度
@@ -79,14 +77,15 @@ int main(void)
 	for(it1 = vec.begin(); it1 != vec.end() ; ++it1)
 	{
 		double lat = (*it1).x;
-		for(it2 = it1; it2 != vec.end() ; ++it2)
+		for(it2 = it1+1; it2 != vec.end() ; ++it2)
 		{
 			if((*it2).x >= (*it1).x+0.1) break;
 			if(surten(*it1, *it2) == false)
 			{
 				loc.push_back(Points((*it1).lo,(*it2).lo));
-				// printf("%d\n", cnt);cnt+=1;
+				cnt+=1;
 			}
+			printf("%d\n", cnt);
 		}
 	}
      end = clock();
